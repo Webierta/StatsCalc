@@ -13,16 +13,24 @@ With this statistical calculator you can obtain the most common statistical inde
 - Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation (coming soon).
 - Correlation (coming soon): Correlation coefficient, Linear Regression...
 
-## DATA SUPPORTED
+### Screenshots
+
+![StatsCalc Start](http://genie.webierta.skn1.com/_media/wiki/inicio2.png?w=400&tok=fd80f5)
+
+![StatsCalc Settings](http://genie.webierta.skn1.com/_media/wiki/settings.png?w=400&tok=18ce0d)
+
+![StatsCalc Results](http://genie.webierta.skn1.com/_media/wiki/results.png)
+
+## Data Supported
 
 Only numbers. Integer and decimal numbers (with point, not comma), positive (unsigned) and negative (with -) are supported. Each data in a line or separated by commas (check the settings for entering data).
 
-## OPTIONS AVAILABLE AT STARTUP
+## Options Available At Startup
 
 - Data from population (default) or sample.
 - Data sets: 1 (default) or 2.
 
-## WAYS TO ENTER DATA
+## Ways To Enter Data
 
 - Type with the keyboard.
 - Copy and paste.
@@ -30,7 +38,7 @@ Only numbers. Integer and decimal numbers (with point, not comma), positive (uns
 
 See settings to choose how to write and paste the data.
 
-## SETTINGS
+## Settings
 
 Choose the maximum number of decimal places: 2, 4 (default) or 6. All results are rounded to the eighth decimal.
 
@@ -40,13 +48,13 @@ Choose how to enter the data:
 	
 Preferences are reset each time the program is closed. In future versions the settings will be saved.
 
-## SAVE RESULTS
+## Save Results
 
 You can copy all the solutions to the clipboard to paste them into any text file.
 
 Export to a new text file (coming soon...).
 
-## DEVELOPMENT
+## Development
 
 The application is still under development, implying at least two things:
 
@@ -74,4 +82,6 @@ Dependencies:
 valac --pkg gtk+-3.0 --pkg sqlite3 --pkg gee-0.8 -X -lm Stats.gs Calculator.gs WinSolutions.gs WinHelp.gs --output stats
 
 ./stats
+
+Soon available in package deb to install.
 
