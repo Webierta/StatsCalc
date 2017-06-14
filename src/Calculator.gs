@@ -23,8 +23,6 @@ uses
 	Gee
 	Gtk
 //	Sqlite
-//	GLib
-// 	GLib Gsl    -X -lm --pkg gsl
 
 class Calculator: Object
 
@@ -164,6 +162,10 @@ class Calculator: Object
 		desviacion_str: string = dato_dec_to_str(desviacion, select_dec)
 		dic_cal_1["36. Standard Deviation"] = desviacion_str
 
+		// COEFICIENTE DE VARIACION
+		coef_variacion: double = (desviacion/media_arit)
+		coef_variacion_str: string = dato_dec_to_str(coef_variacion, select_dec)
+		dic_cal_1["38. Coefficient of variation"] = coef_variacion_str		
 		
 		return dic_cal_1
 

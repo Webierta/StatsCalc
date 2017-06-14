@@ -65,7 +65,7 @@ With this statistical calculator you can obtain the most common statistical inde
 
 - Descriptive parameters: Size, Minimum, Maximum, Summation, Summation squared, Sum of squares.
 - Measures of Central Tendency: Mean, Geometric mean, Median, Mode (coming soon).
-- Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation (coming soon).
+- Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation.
 - Correlation (coming soon): Correlation coefficient, Linear Regression...
 
 DATA SUPPORTED:
@@ -74,6 +74,8 @@ Only numbers. Integer and decimal numbers (with point, not comma), positive (uns
 OPTIONS AVAILABLE AT STARTUP:
 - Data from population (default) or sample.
 - Data sets: 1 (default) or 2.
+
+Important!: Keep in mind that the results vary if it is a complete population or a sample of a population. Make sure what data you want to work with.
 
 WAYS TO ENTER DATA:
 - Type with the keyboard.
