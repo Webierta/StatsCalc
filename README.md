@@ -10,8 +10,8 @@ With this statistical calculator you can obtain the most common statistical inde
 
 - Descriptive parameters: Size, Minimum, Maximum, Summation, Summation squared, Sum of squares.
 - Measures of Central Tendency: Mean, Geometric mean, Median, Mode (coming soon).
-- Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation (coming soon).
-- Correlation (coming soon): Correlation coefficient, Linear Regression...
+- Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation.
+- Correlation: Covariance, Correlation coefficient(coming soon), Linear Regression(coming soon)...
 
 ### Screenshots
 
@@ -84,4 +84,3 @@ valac --pkg gtk+-3.0 --pkg sqlite3 --pkg gee-0.8 -X -lm Stats.gs Calculator.gs W
 ./stats
 
 Soon available in package deb to install.
-

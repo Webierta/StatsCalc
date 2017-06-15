@@ -1,5 +1,5 @@
 /*
-* Copyleft 2017 Jesús Cuerda - All Wrongs Reserved
+* Copyleft 2017 Jesús Cuerda - All Wrongs Reserved (https://github.com/Webierta/StatsCalc)
 *
 * This file is part of Stats Calc.
 *
@@ -66,7 +66,7 @@ With this statistical calculator you can obtain the most common statistical inde
 - Descriptive parameters: Size, Minimum, Maximum, Summation, Summation squared, Sum of squares.
 - Measures of Central Tendency: Mean, Geometric mean, Median, Mode (coming soon).
 - Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation.
-- Correlation (coming soon): Correlation coefficient, Linear Regression...
+- Correlation: Covariance, Correlation coefficient(coming soon), Linear Regression(coming soon)...
 
 DATA SUPPORTED:
 Only numbers. Integer and decimal numbers (with point, not comma), positive (unsigned) and negative (with -) are supported. Each data in a line or separated by commas (check the settings for entering data).
@@ -90,7 +90,7 @@ Choose the maximum number of decimal places: 2, 4 (default) or 6. All results ar
 Choose how to enter the data:
 - Separated by lines (default): each data in a line.
 - Separated by commas: a comma followed by a space (e.g. 11.25, -23.54, 0.55, 51.33).
-	
+
 Preferences are reset each time the program is closed. In future versions the settings will be saved.
 
 SAVE RESULTS:
@@ -130,13 +130,13 @@ Jesús Cuerda - webierta@gmail.com"""
 			"weight", Pango.Weight.BOLD,
 			"size", 14000,
 			"justification", Gtk.Justification.CENTER)
-			
+
 		var size_txt = buffer.create_tag("size", "size", 12000)
-			
+
 		buffer.get_iter_at_line (out start, 0)
 		buffer.get_iter_at_line (out end, 1)
 		buffer.apply_tag_by_name ("titulo", start, end)
-		
+
 		buffer.get_iter_at_line (out start, 1)
 		buffer.get_iter_at_line (out end, 2)
 		buffer.apply_tag_by_name ("subtitulo", start, end)
@@ -152,4 +152,3 @@ Jesús Cuerda - webierta@gmail.com"""
 
 	def salir_ayuda()
 		this.destroy()
-

@@ -1,8 +1,5 @@
-
-// valac --pkg gtk+-3.0 --pkg sqlite3 --pkg gee-0.8 -X -lm Stats.gs Calculator.gs WinSolutions.gs WinHelp.gs --output stats
-
 /*
-* Copyleft 2017 Jesús Cuerda - All Wrongs Reserved
+* Copyleft 2017 Jesús Cuerda - All Wrongs Reserved (https://github.com/Webierta/StatsCalc)
 *
 * This file is part of Stats Calc.
 *
@@ -25,9 +22,8 @@
 uses
 	Gee
 	Gtk
-
 // Sqlite
-	
+
 win_inicio: Gtk.ApplicationWindow
 
 init
@@ -49,8 +45,8 @@ class StatsCalc: Gtk.Application
 	select_dec: string = "4"
 	boton_dec: string
 	select_sep: string = "Lines"
-	boton_sep : string		//= "\n"
-	
+	boton_sep : string
+
 
 	write: Gtk.TextView
 	//write2: Gtk.TextView
@@ -60,6 +56,7 @@ class StatsCalc: Gtk.Application
 
 	set_1: dict of string, string
 	set_2: dict of string, string
+	set_3: dict of string, string
 
 	construct (application_id: string, flags: ApplicationFlags)
 		if !id_is_valid(application_id)
@@ -68,7 +65,7 @@ class StatsCalc: Gtk.Application
 		this.flags = flags
 
 	def salida()
-		win_inicio.destroy()		
+		win_inicio.destroy()
 		Process.exit(0)
 
 	def setting()
@@ -128,10 +125,10 @@ class StatsCalc: Gtk.Application
 			when "Lines"
 				sep_1.set_active(true)
 			when "Commas"
-				sep_2.set_active(true)			
+				sep_2.set_active(true)
 			default
-				sep_1.set_active(true)		
-		
+				sep_1.set_active(true)
+
 		grid.attach(setting_dec, 1, 1, 1, 1)
 		grid.attach(setting_sep, 1, 2, 1, 1)
 		dialogo_settings.show_all()
@@ -147,7 +144,7 @@ class StatsCalc: Gtk.Application
 	def dec_select(button: Gtk.ToggleButton)
 		if (button.get_active())
 			boton_dec = button.get_label()
-	
+
 	def sep_select(button: Gtk.ToggleButton)
 		if (button.get_active())
 			boton_sep = button.get_label()
@@ -156,11 +153,11 @@ class StatsCalc: Gtk.Application
 //			else
 //				boton_sep = "\n"
 
-	def ayuda()		
+	def ayuda()
 		new WinHelp()
 
 	def acercade()
-		var about = new Gtk.ApplicationWindow(this)		
+		var about = new Gtk.ApplicationWindow(this)
 		try
 			icon = new Gdk.Pixbuf.from_file_at_scale("img/sumatorio.jpg", 150, 150, true)
 		except e: Error
@@ -328,31 +325,31 @@ class StatsCalc: Gtk.Application
 
 		win_inicio.show_all()
 
-	def salir_write()		
+	def salir_write()
 		win_write.destroy()
-	
+
 	// DETECTA CARACTERES NO VALIDOS, REPETIDOS (- y .) Y MAL POSICIONADOS (-)
 	def verify(select_sep: string, datos:string):list of string
-	
+
 		detect_invalido: bool = false
 		caracteres_validos: string = "0123456789.-"
 		var datos_string = new list of string
 		var datos_malos = new list of string
-		
+
 		datos_win: string = datos.replace("\r\n", "\n")
-	
+
 		if (select_sep == "Commas")
 			select_sep = ", "
 			datos_win = datos_win.replace("\n", "")
 		else
 			select_sep = "\n"
-		
-		print("VERIFICANDO: %s", select_sep)		
+
+		print("VERIFICANDO: %s", select_sep)
 
 		for dato in datos_win.split(select_sep)   //("\n") (", ")
 			cont_neg: int = 0
 			cont_pun: int = 0
-			if (dato.length > 0)				
+			if (dato.length > 0)
 				for var i = 0 to (dato.length-1)
 					if (dato[i].to_string() in caracteres_validos) == false
 						print("%s NO", dato)
@@ -375,13 +372,13 @@ class StatsCalc: Gtk.Application
 							detect_invalido = true
 							break
 					else
-						print("%s OK", dato)				
+						print("%s OK", dato)
 
 		// RECOPILA DATOS VALIDOS
 		if (detect_invalido == true)
 			print("LISTA DE DATOS VACIA1")
 			return datos_malos
-		else			
+		else
 			for dato in datos_win.split(select_sep)	// ("\n") (", ")
 				if (dato.length > 0)
 					datos_string.add(dato)
@@ -413,17 +410,17 @@ class StatsCalc: Gtk.Application
 		var muestra1_double = new list of double?
 		var muestra2 = new list of string
 		var muestra2_double = new list of double?
-		
+
 		if (select_groups == "1")
-			if (write.buffer.text != "")		
+			if (write.buffer.text != "")
 				muestra1 = verify(select_sep, write.buffer.text)
-				
+
 				if (muestra1.size > 0)
 					print("LISTA DE DATOS 1:")
 					for t in muestra1
 						muestra1_double.add(double.parse(t))
 					for n in muestra1_double
-						print("%.4f", n)								
+						print("%.4f", n)
 					todo_ok1 = true
 					todo_ok2 = false
 					todo_ok3 = false
@@ -439,14 +436,14 @@ class StatsCalc: Gtk.Application
 				todo_ok3 = false
 
 		else if (select_groups == "2")
-			if (write.buffer.text != "")		
+			if (write.buffer.text != "")
 				muestra1 = verify(select_sep, write.buffer.text)
 				if (muestra1.size > 0)
 					print("LISTA DE DATOS 1/2:")
 					for t in muestra1
 						muestra1_double.add(double.parse(t))
 					for n in muestra1_double
-						print("%.4f", n)								
+						print("%.4f", n)
 					todo_ok2 = true
 					todo_ok1 = false
 				else
@@ -466,7 +463,7 @@ class StatsCalc: Gtk.Application
 					for t in muestra2
 						muestra2_double.add(double.parse(t))
 					for n in muestra2_double
-						print("%.4f", n)					
+						print("%.4f", n)
 					todo_ok3 = true
 					todo_ok1 = false
 				else
@@ -482,28 +479,31 @@ class StatsCalc: Gtk.Application
 
 		if (todo_ok1 == true)
 			var calculando1 = new Calculator
-			set_1 = calculando1.calc1(select_dec, "Set 1", select_from, muestra1_double)	
-			win_write.destroy()			
-			for clave in set_1.keys
-				print("SOLUCION: %s = %s", clave, set_1[clave])
+			set_1 = calculando1.calc1(select_dec, select_from, muestra1_double)
+			win_write.destroy()
+			
 			var solution = new WinSolution()
 			solution.dic_stats1(set_1)
 			solution.ventana(select_from)
+
 		else if ((todo_ok2 == true) and (todo_ok3 == true))
+
+			var calculando3 = new Calculator
+			set_3 = calculando3.calc2(select_dec, select_from, muestra1_double, muestra2_double)
+					
 			var calculando1 = new Calculator
-			set_1 = calculando1.calc1(select_dec, "Set 1", select_from, muestra1_double)
-			var calculando2 = new Calculator
-			set_2 = calculando2.calc1(select_dec, "Set 2", select_from, muestra2_double)
-			win_write.destroy()		
-			for clave in set_1.keys
-				print("SOLUCION1: %s = %s", clave, set_1[clave])
-			for clave in set_2.keys
-				print("SOLUCION2: %s = %s", clave, set_2[clave])
-			var solution = new WinSolution()
-			solution.dic_stats2(set_1, set_2)
-			solution.ventana(select_from)
+			set_1 = calculando1.calc1(select_dec, select_from, muestra1_double)
 			
-		else					
+			var calculando2 = new Calculator
+			set_2 = calculando2.calc1(select_dec, select_from, muestra2_double)
+
+			win_write.destroy()
+			
+			var solution = new WinSolution()
+			solution.dic_stats2(set_1, set_2, set_3)
+			solution.ventana(select_from)
+
+		else
 			no_valid()
 
 	def help_write()
@@ -512,24 +512,22 @@ class StatsCalc: Gtk.Application
 			+ "Only numbers. These can be integers,\n"
 			+ "decimals, positives or negatives.\n"
 			+ "Decimal numbers use a point (e.g. 11.25).\n"
-			+ "See help for more information.")			
+			+ "See help for more information.")
 		var noti = new MessageDialog(win_write, Gtk.DialogFlags.MODAL,
 		Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE, msg)
 		var res_noti = noti.run()
 		if res_noti == Gtk.ResponseType.CLOSE
 			noti.destroy()
-	
+
 	def clear_write1()
 		write.buffer.text = ""
-				
+
 	def clear_write2()
 		//write2.buffer.text = ""
 		write.buffer.text = ""
-		
-	def clear_write3()
-		write3.buffer.text = ""	
 
-//		print ("write: data from %s; groups %s", select_from, select_groups)	// CONTROL
+	def clear_write3()
+		write3.buffer.text = ""
 
 	def type()
 
@@ -550,24 +548,24 @@ class StatsCalc: Gtk.Application
 		var write_help = new Button.from_icon_name("gtk-dialog-info", IconSize.MENU)
 		write_help.set_tooltip_text ("How to enter data")
 		write_help.clicked.connect(help_write)
-		header_write.pack_start(write_help)			
-		
-		if (select_groups == "1")		
+		header_write.pack_start(write_help)
+
+		if (select_groups == "1")
 			var write_clear1 = new Button.from_icon_name("gtk-clear", IconSize.MENU)
 			write_clear1.set_tooltip_text ("Clear all")
 			write_clear1.clicked.connect(clear_write1)
 			header_write.pack_start(write_clear1)
-		
+
 		else if (select_groups == "2")
 			var write_clear2 = new Button.from_icon_name("gtk-clear", IconSize.MENU)
 			write_clear2.set_tooltip_text ("Clear Set 1")
 			write_clear2.clicked.connect(clear_write2)
-			header_write.pack_start(write_clear2)		
-			
+			header_write.pack_start(write_clear2)
+
 			var write_clear3 = new Button.from_icon_name("gtk-clear", IconSize.MENU)
 			write_clear3.set_tooltip_text ("Clear Set 2")
 			write_clear3.clicked.connect(clear_write3)
-			header_write.pack_end(write_clear3)		
+			header_write.pack_end(write_clear3)
 
 		var box_write = new Gtk.Box(Gtk.Orientation.VERTICAL, 4)  // CAJA PRINCIPAL (GRUPOS Y BOTONES)
 		box_write.set_hexpand(true)
@@ -587,10 +585,10 @@ class StatsCalc: Gtk.Application
 			scrolled_write.add(write)
 			box_group.pack_start(scrolled_write, true, true, 0)
 
-		else if (select_groups == "2")			
-		
+		else if (select_groups == "2")
+
 			header_write.set_title ("Two data sets")
-			
+
 			write = new Gtk.TextView()								// Subcaja grupo 1
 			write.set_wrap_mode (Gtk.WrapMode.WORD)
 			write.set_editable(true)
@@ -600,7 +598,7 @@ class StatsCalc: Gtk.Application
 
 			var scrolled_write = new Gtk.ScrolledWindow (null, null)
 			scrolled_write.add(write)
-			box_group.pack_start(scrolled_write, true, true, 0)			
+			box_group.pack_start(scrolled_write, true, true, 0)
 
 //			write2 = new Gtk.TextView()								// Subcaja grupo 1
 //			write2.set_wrap_mode (Gtk.WrapMode.WORD)
@@ -616,7 +614,7 @@ class StatsCalc: Gtk.Application
 			write3.set_wrap_mode (Gtk.WrapMode.WORD)
 			write3.set_editable(true)
 			write3.set_hexpand(true)
-			write3.buffer.text = ""			
+			write3.buffer.text = ""
 
 			var scrolled_write3 = new Gtk.ScrolledWindow (null, null)
 			scrolled_write3.add(write3)
@@ -634,7 +632,7 @@ class StatsCalc: Gtk.Application
 		box_write.pack_start (box_group, true, true, 0)
 		box_write.pack_start(box_botones, false, false, 0)
 
-		win_write.show_all ()			
+		win_write.show_all ()
 		win_write.set_keep_above(true)
 
 	def data_from_select(button: Gtk.ToggleButton)
@@ -644,8 +642,7 @@ class StatsCalc: Gtk.Application
 			select_from = "Sample"
 
 	def data_groups_select(button: Gtk.ToggleButton)
-		if (button.get_active())			
+		if (button.get_active())
 			select_groups = button.get_label()
-		else			
-			select_groups = "2"			
-
+		else
+			select_groups = "2"
