@@ -43,10 +43,9 @@ class StatsCalc: Gtk.Application
 	select_from: string = "Population"
 	select_groups: string = "1"
 	select_dec: string = "4"
-	boton_dec: string
+	//boton_dec: string
 	select_sep: string = "Lines"
-	boton_sep : string
-
+	//boton_sep : string
 
 	write: Gtk.TextView
 	//write2: Gtk.TextView
@@ -100,7 +99,6 @@ class StatsCalc: Gtk.Application
 		caja_dec.pack_start(dec_1, true, false, 5)
 		caja_dec.pack_start(dec_2, true, false, 5)
 		caja_dec.pack_start(dec_3, true, false, 5)
-
 		case select_dec
 			when "2"
 				dec_1.set_active(true)
@@ -109,7 +107,7 @@ class StatsCalc: Gtk.Application
 			when "6"
 				dec_3.set_active(true)
 			default
-				dec_1.set_active(true)
+				dec_2.set_active(true)
 
 		var setting_sep = new Gtk.Frame("<b>Enter data separated by</b>")
 		(setting_sep.label_widget as Gtk.Label).use_markup = true
@@ -135,23 +133,21 @@ class StatsCalc: Gtk.Application
 
 		run_setting:int = dialogo_settings.run()
 		if run_setting == Gtk.ResponseType.OK
-			select_dec = boton_dec
-			select_sep = boton_sep
+			//select_dec = boton_dec
+			//select_sep = boton_sep
 			dialogo_settings.destroy()
 		else if run_setting == Gtk.ResponseType.CANCEL
 			dialogo_settings.destroy()
 
 	def dec_select(button: Gtk.ToggleButton)
 		if (button.get_active())
-			boton_dec = button.get_label()
+			select_dec = button.get_label() //boton_dec = button.get_label()
 
 	def sep_select(button: Gtk.ToggleButton)
 		if (button.get_active())
-			boton_sep = button.get_label()
-//			if (boton_sep == "Commas")
-//				boton_sep = ", "
-//			else
-//				boton_sep = "\n"
+			select_sep = button.get_label()		//boton_sep = button.get_label()
+		else
+			select_sep = "Commas"
 
 	def ayuda()
 		new WinHelp()
@@ -337,38 +333,33 @@ class StatsCalc: Gtk.Application
 		var datos_malos = new list of string
 
 		datos_win: string = datos.replace("\r\n", "\n")
-
+		
+		select_split: string
 		if (select_sep == "Commas")
-			select_sep = ", "
+			select_split = ", "
 			datos_win = datos_win.replace("\n", "")
 		else
-			select_sep = "\n"
+			select_split = "\n"
 
-		print("VERIFICANDO: %s", select_sep)
-
-		for dato in datos_win.split(select_sep)   //("\n") (", ")
+		for dato in datos_win.split(select_split)   //("\n") (", ")
 			cont_neg: int = 0
 			cont_pun: int = 0
 			if (dato.length > 0)
 				for var i = 0 to (dato.length-1)
 					if (dato[i].to_string() in caracteres_validos) == false
-						print("%s NO", dato)
 						detect_invalido = true
 						break
 					else if (dato[i].to_string() == "-")
 						cont_neg +=1
 						if (cont_neg > 1)
-							print "MUCHOS NEGATIVOS"
 							detect_invalido = true
 							break
 						if (dato.to_string().index_of("-") != 0)
-							print("NEGATIVO NO INICIAL")
 							detect_invalido = true
 							break
 					else if (dato[i].to_string() == ".")
 						cont_pun +=1
 						if (cont_pun > 1)
-							print "MUCHOS PUNTOS"
 							detect_invalido = true
 							break
 					else
@@ -376,16 +367,14 @@ class StatsCalc: Gtk.Application
 
 		// RECOPILA DATOS VALIDOS
 		if (detect_invalido == true)
-			print("LISTA DE DATOS VACIA1")
 			return datos_malos
 		else
-			for dato in datos_win.split(select_sep)	// ("\n") (", ")
+			for dato in datos_win.split(select_split)	// ("\n") (", ")
 				if (dato.length > 0)
 					datos_string.add(dato)
 			if (datos_string.size > 0)
 				return datos_string
 			else
-				print("LISTA DE DATOS VACIA2")
 				return datos_malos
 
 	def no_valid()
@@ -412,25 +401,20 @@ class StatsCalc: Gtk.Application
 		var muestra2_double = new list of double?
 
 		if (select_groups == "1")
-			if (write.buffer.text != "")
+			if (write.buffer.text != "")				
 				muestra1 = verify(select_sep, write.buffer.text)
 
-				if (muestra1.size > 0)
-					print("LISTA DE DATOS 1:")
+				if (muestra1.size > 0)					
 					for t in muestra1
 						muestra1_double.add(double.parse(t))
-					for n in muestra1_double
-						print("%.4f", n)
 					todo_ok1 = true
 					todo_ok2 = false
 					todo_ok3 = false
 				else
-					print("LISTA MALA 1")
 					todo_ok1 = false
 					todo_ok2 = false
 					todo_ok3 = false
 			else
-				print "NADA 1"
 				todo_ok1 = false
 				todo_ok2 = false
 				todo_ok3 = false
@@ -439,40 +423,30 @@ class StatsCalc: Gtk.Application
 			if (write.buffer.text != "")
 				muestra1 = verify(select_sep, write.buffer.text)
 				if (muestra1.size > 0)
-					print("LISTA DE DATOS 1/2:")
 					for t in muestra1
 						muestra1_double.add(double.parse(t))
-					for n in muestra1_double
-						print("%.4f", n)
 					todo_ok2 = true
 					todo_ok1 = false
 				else
-					print("LISTA MALA 1/2")
 					todo_ok2 = false
 					todo_ok3 = false
 					todo_ok1 = false
 			else
-				print "NADA 1/2"
 				todo_ok2 = false
 				todo_ok3 = false
 				todo_ok1 = false
 			if (write3.buffer.text != "")
 				muestra2 = verify(select_sep, write3.buffer.text)
 				if (muestra2.size > 0)
-					print("LISTA DE DATOS 2:")
 					for t in muestra2
 						muestra2_double.add(double.parse(t))
-					for n in muestra2_double
-						print("%.4f", n)
 					todo_ok3 = true
 					todo_ok1 = false
 				else
-					print("LISTA MALA 2")
 					todo_ok3 = false
 					todo_ok2 = false
 					todo_ok1 = false
 			else
-				print "NADA 2"
 				todo_ok3 = false
 				todo_ok2 = false
 				todo_ok1 = false
@@ -481,7 +455,7 @@ class StatsCalc: Gtk.Application
 			var calculando1 = new Calculator
 			set_1 = calculando1.calc1(select_dec, select_from, muestra1_double)
 			win_write.destroy()
-			
+
 			var solution = new WinSolution()
 			solution.dic_stats1(set_1)
 			solution.ventana(select_from)
@@ -490,15 +464,15 @@ class StatsCalc: Gtk.Application
 
 			var calculando3 = new Calculator
 			set_3 = calculando3.calc2(select_dec, select_from, muestra1_double, muestra2_double)
-					
+
 			var calculando1 = new Calculator
 			set_1 = calculando1.calc1(select_dec, select_from, muestra1_double)
-			
+
 			var calculando2 = new Calculator
 			set_2 = calculando2.calc1(select_dec, select_from, muestra2_double)
 
 			win_write.destroy()
-			
+
 			var solution = new WinSolution()
 			solution.dic_stats2(set_1, set_2, set_3)
 			solution.ventana(select_from)

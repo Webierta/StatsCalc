@@ -45,13 +45,13 @@ class Calculator: Object
 	sumatorio_dif_y: double = 0
 	sumatorio_2_x: double = 0
 	sumatorio_2_y: double = 0
-	sumatorio_x_por_y: double = 0
 	sumatorio_dif_xy: double
 	varianza_x: double = 0
 	varianza_y: double = 0
 	desviacion_x: double
 	desviacion_y: double
 	covarianza: double = 0
+	regresion: double = 0
 
 	dic_cal_1: dict of string, string
 	dic_cal_2: dict of string, string
@@ -63,7 +63,7 @@ class Calculator: Object
 			select_from = "S"
 		else
 			select_from = "P"
-		
+
 		dic_cal_1 = new dict of string, string
 
 		// TAMAÑO ENTERO Y ORDEN ASCENDENTE  .sort()
@@ -76,9 +76,6 @@ class Calculator: Object
 					var r = muestra[y]
 					muestra[y] = muestra[y+1]
 					muestra[y+1] = r
-		print("Orden ascendente:")
-		for var i=0 to (muestra.size-1)
-			print("%.4f", muestra[i])
 
 		// TAMAÑO DOUBLE
 		size: double = muestra.size
@@ -159,12 +156,10 @@ class Calculator: Object
 		dic_cal_1["32. Mean Absolute Deviation"] = desviacion_media_str
 
 		if (select_from == "P")
-			print "POBLACION"
 			//varianza = (sumatorio_2/size_int) - Math.pow(media_arit, 2)
 			varianza = sumatorio_2/size_int
 			desviacion = Math.sqrt(varianza)
 		else
-			print "MUESTRA"
 			varianza = sumatorio_2/(size_int-1)
 			desviacion = Math.sqrt(varianza)
 
@@ -186,20 +181,6 @@ class Calculator: Object
 	def calc2(select_dec: string, select_from: string, muestra1: list of(double?),
 		muestra2: list of double?): dict of string, string
 
-//		sumatorio_x: double = 0
-//		sumatorio_y: double = 0
-//		sumatorio_dif_x: double = 0
-//		sumatorio_dif_y: double = 0
-//		sumatorio_2_x: double = 0
-//		sumatorio_2_y: double = 0
-//		sumatorio_x_por_y: double = 0
-//		sumatorio_dif_xy: double = 0
-//		varianza_x: double = 0
-//		varianza_y: double = 0
-//		desviacion_x: double
-//		desviacion_y: double
-//		covarianza: double = 0
-
 		if (select_from == "Sample")
 			select_from = "S"
 		else
@@ -211,7 +192,7 @@ class Calculator: Object
 		size_x: double = muestra1.size
 		size_y: double = muestra2.size
 		size_int_x: int = muestra1.size
-		size_int_y: int = muestra2.size	
+		size_int_y: int = muestra2.size
 
 		// SUMATORIOS Y PRODUCTO
 		for x in muestra1
@@ -247,43 +228,31 @@ class Calculator: Object
 		if (size_int_x == size_int_y)
 
 			for var xy = 0 to (muestra1.size-1)
-				sumatorio_x_por_y += (muestra1[xy]*muestra2[xy])
-			print("SUMATORIO X Y = %.4f", sumatorio_x_por_y)
-
-			for var xy = 0 to (muestra1.size-1)
 				sumatorio_dif_xy += (muestra1[xy]-media_arit_x)*(muestra2[xy]-media_arit_y)
-				print("SUMATORIO DIF XY = %.4f = %.4f - %.4f", sumatorio_dif_xy, muestra1[xy],media_arit_x)
 
 			if (select_from == "P")
-				//covarianza = ((sumatorio_x_por_y/(size_x)) - (media_arit_x * media_arit_y))
 				covarianza = sumatorio_dif_xy / size_x
+				regresion = covarianza / (desviacion_x * desviacion_y)
 			else
-				//covarianza = ((sumatorio_x_por_y/(size_int_x-1)) - (media_arit_x * media_arit_y))
-				covarianza = sumatorio_dif_xy / (size_x-1)		
-
-			print("SUMATORIO X POR Y = %.4f", sumatorio_dif_xy)
-			print("COVARIANZA = %.4f", covarianza)
+				covarianza = sumatorio_dif_xy / (size_x-1)
+				regresion = covarianza / (desviacion_x * desviacion_y)
 
 			covarianza_str: string = dato_dec_to_str(covarianza, select_dec)
 			dic_cal_2["40. Covariance"] = covarianza_str
 
-		for clave in dic_cal_2.keys
-			print("SOLUCION4: %s = %s", clave, dic_cal_2[clave])
+			// REGRESION
+			regresion_str: string = dato_dec_to_str(regresion, select_dec)
+			dic_cal_2["42. Correlation coefficient"] = regresion_str
 
 		return dic_cal_2
 
 
 	def dato_dec_to_str (dec:double, select_dec:string): string
-		print("DECIMALES SELECCIONADOS: %s", select_dec)
 		decimal_setting:int = int.parse(select_dec)
-		//dec = Math.round (dec)
-		//dato_str:string = dec.to_string()
 
 		//dato_str: string = numero.format(buf)	// SOLUCION CON 4 DECIMALES
 		buf: array of char = new array of char[double.DTOSTR_BUF_SIZE]
 		dato_str: string = dec.format(buf, "%.8lf")	// REDONDEA A 8 DECIMALES
-		print"DATOS"
-		print(dato_str)
 
 		largo: int = dato_str.length
 		if (dato_str != "0.00000000") and (dato_str != "-0.00000000")
@@ -294,12 +263,10 @@ class Calculator: Object
 		else
 			dato_str = "0"
 
-		print(dato_str)
 		if dato_str.contains (".")
 			punto:int = dato_str.index_of(".")
 			fin:int = dato_str.length
 			deci:int = (fin-1) - punto
-			print("DECIMALES: %i", deci)
 			if (deci > decimal_setting)
 				deci = decimal_setting
 			dato_str = dato_str[0: punto+deci+1]

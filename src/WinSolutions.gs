@@ -57,14 +57,14 @@ class WinSolution: Gtk.ApplicationWindow
 		else if (col == 2)
 			distancia = 20
 		else if (col == 4)
-			distancia = 30
+			distancia = 25
 		else
 			distancia = 10
 		for x in lista_temp
-			n_spc: int = distancia - x.length
+			n_spc: int = (distancia) - x.length
 			spc: string = " "
 			for var i = 0 to n_spc
-				spc += " "
+				spc += " "			
 			x = x + spc + "\t"
 			lista.add(x)
 		return lista
@@ -76,7 +76,7 @@ class WinSolution: Gtk.ApplicationWindow
 		lista_1 = spaces(1, datos_1)
 		lista_2 = spaces(2, datos_1)
 
-		for var i = 0 to ((lista_1.size)-1)  // (lista_1.size/2)-1
+		for var i = 0 to (lista_1.size-1)  // (lista_1.size/2)-1
 			solution_text_final += lista_1.get(i) + lista_2.get(i) + "\n"
 
 		solution_text_final = "\t\t\t\tSET 1\n\n" + solution_text_final
@@ -93,11 +93,11 @@ class WinSolution: Gtk.ApplicationWindow
 		lista_4 = spaces(1, datos_3)
 		lista_5 = spaces(4, datos_3)
 
-		for var i = 0 to ((lista_1.size)-1)  // (lista_1.size/3)-1
+		for var i = 0 to (lista_1.size-1)  // (lista_1.size/3)-1
 			solution_text_final += lista_1.get(i)+lista_2.get(i)+lista_3.get(i)+"\n"
-
+		
 		for var i = 0 to (lista_4.size-1)
-			solution_text_final += lista_4.get(0)+lista_5.get(0)+"\n"
+			solution_text_final += lista_4.get(i) + "\t" + lista_5.get(i)+"\n"
 
 		solution_text_final = "\t\t\t\tSET 1\t\t\tSET 2\n\n" + solution_text_final
 

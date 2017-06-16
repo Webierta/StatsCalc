@@ -66,10 +66,14 @@ With this statistical calculator you can obtain the most common statistical inde
 - Descriptive parameters: Size, Minimum, Maximum, Summation, Summation squared, Sum of squares.
 - Measures of Central Tendency: Mean, Geometric mean, Median, Mode (coming soon).
 - Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation.
-- Correlation: Covariance, Correlation coefficient(coming soon), Linear Regression(coming soon)...
+- Correlation: Covariance, Correlation coefficient, Linear Regression(coming soon)...
 
 DATA SUPPORTED:
 Only numbers. Integer and decimal numbers (with point, not comma), positive (unsigned) and negative (with -) are supported. Each data in a line or separated by commas (check the settings for entering data).
+
+When a valid index can not be obtained with the entered data:
+- NaN may appear when it is not possible to return a number.
+- That index is not shown in the results (for example, some relationship measures are not shown if the two sets of data are not the same size).
 
 OPTIONS AVAILABLE AT STARTUP:
 - Data from population (default) or sample.
