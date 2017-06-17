@@ -9,11 +9,11 @@ The elementary statistical calculations, such as mean, median, variance, regress
 With this statistical calculator you can obtain the most common statistical indexes for one and two samples. Stats Calc including:
 
 - Descriptive parameters: Size, Minimum, Maximum, Summation, Summation squared, Sum of squares.
-- Measures of Central Tendency: Mean, Geometric mean, Median, Mode*.
+- Measures of Central Tendency: Mean, Geometric mean, Median, Mode[^1].
 - Measures of Dispersion: Range, Mean Absolute Deviation, Variance, Standard desviation, Coefficient of variation.
 - Correlation: Covariance, Correlation coefficient, Linear Regression(coming soon)...
 
-* Mode: Returns a single value or NO if it does not exist. If there is more than one, return one of them and indicate that there is more.
+[^1]: Mode: Returns a single value or NO if it does not exist. If there is more than one, return one of them and indicate that there is more.
 
 ### Screenshots
 
