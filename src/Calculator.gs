@@ -56,6 +56,8 @@ class Calculator: Object
 	dic_cal_1: dict of string, string
 	dic_cal_2: dict of string, string
 
+	lista_contador: list of int
+
 	def calc1(select_dec: string, select_from: string,
 		muestra: list of double?): dict of string, string
 
@@ -139,6 +141,55 @@ class Calculator: Object
 		dic_cal_1["26. Median"] = mediana_str
 
 		// MODA [20]
+		moda: double
+		numero: double = 0
+		posicion: int = 0
+		lista_contador = new list of int
+		mayor: int
+		posicionmayor: int
+
+		for var i = 0 to (muestra.size-1)
+			lista_contador.add(0)
+
+		for var i = 0 to (muestra.size-1)
+			numero = muestra[i]
+			posicion = i
+			for var i2 = i to (muestra.size-1)  //muestra.size-1
+				if (muestra[i2] == numero)
+					lista_contador.set(posicion, lista_contador.get(posicion)+1)
+					//lista_contador[posicion] = lista_contador[posicion] + 1
+
+		mayor = lista_contador[0]
+		posicionmayor = 0
+
+		for var i = 0 to (muestra.size-1)
+			if (lista_contador[i] > mayor)
+				posicionmayor = i
+				mayor = lista_contador[i]
+
+		n_modas: int = 0
+		for var i = 0 to (muestra.size-1)
+			if (mayor == lista_contador[i])
+				n_modas++
+
+		if (n_modas > 1)
+			print "VARIAS MODAS"
+
+
+		if ((mayor == 1) and (muestra.size != 1))
+			print "NO HAY MODA"
+			moda_str: string = "NO"
+			dic_cal_1["28. Mode"] = moda_str
+		else
+			print("MODA = %.4f", muestra[posicionmayor])
+			moda = muestra[posicionmayor]
+			if (n_modas > 1)
+				moda_str: string = dato_dec_to_str(moda, select_dec)
+				moda_str = moda_str + "(+ modes)"
+				dic_cal_1["28. Mode"] = moda_str
+			else
+				moda_str: string = dato_dec_to_str(moda, select_dec)
+				dic_cal_1["28. Mode"] = moda_str
 
 		//RANGO
 		rango: double = maximo - minimo
@@ -256,12 +307,16 @@ class Calculator: Object
 
 		largo: int = dato_str.length
 		if (dato_str != "0.00000000") and (dato_str != "-0.00000000")
-			while (dato_str[largo-1:largo] == "0" or dato_str[largo-1:largo] == ".")
-				if (dato_str[largo-1:largo] == "0" or dato_str[largo-1:largo] == ".")
+			while (dato_str[largo-1:largo] == "0") // or dato_str[largo-1:largo] == ".")
+				if (dato_str[largo-1:largo] == "0")  //or dato_str[largo-1:largo] == ".")
 					dato_str = dato_str.splice(largo-1, largo, "")
 				largo = dato_str.length
 		else
 			dato_str = "0"
+
+		ultimo: int = dato_str.length
+		if (dato_str[ultimo-1:ultimo] == ".")
+			dato_str = dato_str.splice(ultimo-1, ultimo, "")
 
 		if dato_str.contains (".")
 			punto:int = dato_str.index_of(".")
