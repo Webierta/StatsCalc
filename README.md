@@ -85,6 +85,9 @@ Dependencies:
 
 valac --pkg gtk+-3.0 --pkg sqlite3 --pkg gee-0.8 -X -lm Stats.gs Calculator.gs WinSolutions.gs WinHelp.gs --output stats
 
+Copy the image sumatorio.jpg into /usr/share/pixmaps
+
 ./stats
 
-Soon available in package deb to install.
+Or install the deb package directly.
+

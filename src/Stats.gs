@@ -155,7 +155,7 @@ class StatsCalc: Gtk.Application
 	def acercade()
 		var about = new Gtk.ApplicationWindow(this)
 		try
-			icon = new Gdk.Pixbuf.from_file_at_scale("img/sumatorio.jpg", 150, 150, true)
+			icon = new Gdk.Pixbuf.from_file_at_scale("/usr/share/pixmaps/sumatorio.jpg", 150, 150, true)
 		except e: Error
 			msg_error: string = e.message + "\nUnloaded image."
 			var noti = new MessageDialog(about, Gtk.DialogFlags.MODAL,
@@ -277,7 +277,7 @@ class StatsCalc: Gtk.Application
 		var subtit_inicio = new Gtk.Label("Statistics Calculator")
 
 		var logo_inicio = new Gtk.Image ()
-		logo_inicio.set_from_file ("img/sumatorio.jpg")
+		logo_inicio.set_from_file ("/usr/share/pixmaps/sumatorio.jpg")
 
 		var data_from = new Gtk.Frame("<b>Data from</b>")
 		(data_from.label_widget as Gtk.Label).use_markup = true

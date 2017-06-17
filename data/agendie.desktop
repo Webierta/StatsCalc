@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=StatsCalc
+GenericName=Statistics Calculator
+Comment=Calculate basic descriptive statistics
+Version=0.0.1
+Exec=/usr/bin/stats
+Icon=/usr/share/pixmaps/sumatotio.jpg
+Type=Application
+Terminal=false
+StartupNotify=true
+Encoding=UTF-8
+Categories=Utility;
+X-GNOME-Gettext-Domain=stats
+Keywords=stats;calculator;statistics;
