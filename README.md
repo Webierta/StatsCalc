@@ -1,5 +1,7 @@
 # STATS CALC
 
+[![Download deb](https://img.shields.io/badge/download-deb-green.svg?style=plastic)](http://goo.gl/Ad9yg7)
+
 ## Statistics Calculator
 
 Calculate basic descriptive statistics for one or two data set from a population o a sample.
@@ -89,5 +91,5 @@ Copy the image sumatorio.jpg into /usr/share/pixmaps
 
 ./stats
 
-Or install the deb package directly.
+Or download and install the deb package directly from [the downloads website](https://webierta.github.io/StatsCalc/index.html) .
 
