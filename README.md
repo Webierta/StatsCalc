@@ -19,9 +19,9 @@ With this statistical calculator you can obtain the most common statistical inde
 
 ### Screenshots
 
-![StatsCalc Start](http://genie.webierta.skn1.com/_media/wiki/inicio2.png?w=400&tok=fd80f5) ![StatsCalc Settings](http://genie.webierta.skn1.com/_media/wiki/settings.png?w=400&tok=18ce0d)
+![StatsCalc Start](https://1.bp.blogspot.com/-M0JxDvRdzpA/XjWdK7NTXmI/AAAAAAAABus/yGU3LEpggHkHhUrBHNh0uddENtIz308_ACLcBGAsYHQ/s1600/inicio2.png?w=400&tok=fd80f5) ![StatsCalc Settings](https://1.bp.blogspot.com/--2uUK5lixxM/XjWeTDi-VuI/AAAAAAAABu8/Hpb51X4kaIch6_5rJMi9JIupmL5d3QWAwCLcBGAsYHQ/s1600/settings.png?w=400&tok=18ce0d)
 
-![StatsCalc Results](http://genie.webierta.skn1.com/_media/wiki/results.png)
+![StatsCalc Results](https://2.bp.blogspot.com/-k9AicUMLopU/XjWdUUJNg1I/AAAAAAAABuw/ZKazesonNmEXcTDYQJS5OYQ6I8b0xDXlgCLcBGAsYHQ/s1600/results.png)
 
 ## Data Supported
 
